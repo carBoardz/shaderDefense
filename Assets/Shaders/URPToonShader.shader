@@ -29,6 +29,10 @@ Shader "Custom/URPToonShader"
         _RimPower("Rim Power", Range(0.1, 10)) = 3
         _RimThreshold("Rim Threshold", Range(0, 1)) = 0.5
         _RimFeather("Rim Feathering", Range(0.001, 0.1)) = 0.01
+
+        [Header(Outline Settings)]
+        _OutlineColor("Outline Color", Color) = (0, 0, 0, 1)
+        _OutlineWidth("Outline Width", Range(0, 0.05)) = 0.01
     }
 
     SubShader
@@ -105,6 +109,9 @@ Shader "Custom/URPToonShader"
                 half _RimPower;
                 half _RimThreshold;
                 half _RimFeather;
+                
+                half4 _OutlineColor;
+                half _OutlineWidth;
             CBUFFER_END
 
             TEXTURE2D(_BaseMap);
@@ -239,6 +246,80 @@ Shader "Custom/URPToonShader"
                 finalColor = MixFog(finalColor, input.fogFactor);
                 
                 return half4(finalColor, albedo.a * _BaseColor.a);
+            }
+            ENDHLSL
+        }
+
+        // Outline Pass
+        Pass
+        {
+            Name "Outline"
+            Tags { "LightMode"="SRPDefaultUnlit" }
+
+            Cull Front
+            ZWrite On
+            ZTest LEqual
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+
+            struct Attributes
+            {
+                float4 positionOS   : POSITION;
+                float3 normalOS     : NORMAL;
+            };
+
+            struct Varyings
+            {
+                float4 positionCS   : SV_POSITION;
+            };
+
+            CBUFFER_START(UnityPerMaterial)
+                float4 _BaseMap_ST;
+                half4 _BaseColor;
+                half4 _ShadeColor1;
+                half4 _ShadeColor2;
+                half _Threshold1;
+                half _Threshold2;
+                half _Feather;
+                half4 _SpecColor;
+                half _SpecularThreshold;
+                half _SpecularGloss;
+                half _SpecularFeather;
+                half _ShadowStrength;
+                half4 _RimColor;
+                half _RimPower;
+                half _RimThreshold;
+                half _RimFeather;
+                
+                half4 _OutlineColor;
+                half _OutlineWidth;
+            CBUFFER_END
+
+            Varyings vert(Attributes input)
+            {
+                Varyings output = (Varyings)0;
+
+                // Transform position to World Space
+                float3 positionWS = TransformObjectToWorld(input.positionOS.xyz);
+                // Transform normal to World Space
+                float3 normalWS = TransformObjectToWorldNormal(input.normalOS);
+
+                // Offset the world space position along the normalized world space normal
+                positionWS += normalize(normalWS) * _OutlineWidth;
+
+                // Transform back to Clip Space
+                output.positionCS = TransformWorldToHClip(positionWS);
+
+                return output;
+            }
+
+            half4 frag(Varyings input) : SV_Target
+            {
+                return _OutlineColor;
             }
             ENDHLSL
         }
