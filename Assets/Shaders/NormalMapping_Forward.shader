@@ -36,7 +36,7 @@ Shader "Custom/NormalMapping_Forward"
             struct v2f
             {
                 float4 pos : SV_POSITION;
-                float2 uv : TEXCOORD0;
+                float4 uv : TEXCOORD0;
                 float4 TtoW0 : TEXCOORD1;
                 float4 TtoW1 : TEXCOORD2;
                 float4 TtoW2 : TEXCOORD3;
@@ -131,7 +131,7 @@ Shader "Custom/NormalMapping_Forward"
             struct v2f
             {
                 float4 pos : SV_POSITION;
-                float2 uv : TEXCOORD0;
+                float4 uv : TEXCOORD0;
                 float4 TtoW0 : TEXCOORD1;
                 float4 TtoW1 : TEXCOORD2;
                 float4 TtoW2 : TEXCOORD3;
