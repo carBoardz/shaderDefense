@@ -48,7 +48,7 @@ Shader "Custom/URPToonShader"
         Pass
         {
             Name "ForwardLit"
-            Tags { "LightMode"="UniversalForward" }
+            Tags { "LightMode"="SRPDefaultUnlit" }
 
             HLSLPROGRAM
             #pragma vertex vert

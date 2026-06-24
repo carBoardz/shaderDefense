@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _RIM_LIGHT_ON
   - _SPECULAR_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -31,21 +32,23 @@ Material:
     m_Ints: []
     m_Floats:
     - _Feather: 0.01
+    - _OutlineWidth: 0.01
     - _RimFeather: 0.01
-    - _RimLightOn: 0
-    - _RimPower: 3
-    - _RimThreshold: 0.5
+    - _RimLightOn: 1
+    - _RimPower: 1.79
+    - _RimThreshold: 0.388
     - _ShadowStrength: 1
     - _SpecularFeather: 0.01
-    - _SpecularGloss: 32
+    - _SpecularGloss: 22
     - _SpecularOn: 1
-    - _SpecularThreshold: 0.5
-    - _Threshold1: 0.5
-    - _Threshold2: 0.2
+    - _SpecularThreshold: 0.475
+    - _Threshold1: 0.717
+    - _Threshold2: 0.453
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.95, b: 0.9, a: 1}
-    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ShadeColor1: {r: 0.8, g: 0.7, b: 0.75, a: 1}
-    - _ShadeColor2: {r: 0.55, g: 0.5, b: 0.6, a: 1}
-    - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0, g: 0.9467921, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 0.51152545, g: 0.8962264, b: 0.5206914, a: 1}
+    - _ShadeColor1: {r: 0.12691349, g: 0.6602439, b: 0.8679245, a: 1}
+    - _ShadeColor2: {r: 0.096787095, g: 0.6595861, b: 0.8207547, a: 1}
+    - _SpecColor: {r: 0.7307761, g: 0.9622642, b: 0.82973284, a: 1}
   m_BuildTextureStacks: []
